@@ -19,32 +19,35 @@ class AuthPage extends StatelessWidget {
       body: SafeArea(
         child: BlocConsumer<UserBloc, UserState>(
           builder: (context, state) {
-            return Column(
-              children: [
-                Text(
-                  "Chronicle",
-                  style: Theme.of(context).textTheme.headlineLarge,
-                ),
-                Spacer(),
-                SvgPicture.asset('assets/images/login_image.svg'),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    "Collaborate with friends to craft unique stories",
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headlineSmall,
+            return Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children: [
+                  Text(
+                    "Chronicle",
+                    style: Theme.of(context).textTheme.headlineLarge,
                   ),
-                ),
-                Spacer(flex: 2),
-                DefaultButton(
-                  text: "Login with Google",
-                  textColor: AppColors.textColor,
-                  backgroundColor: AppColors.secondary,
-                  onPressed: () {
-                    context.read<UserBloc>().add(LoginWithGoogleEvent());
-                  },
-                ),
-              ],
+                  Spacer(),
+                  SvgPicture.asset('assets/images/login_image.svg'),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Text(
+                      "Collaborate with friends to craft unique stories",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                  ),
+                  Spacer(flex: 2),
+                  DefaultButton(
+                    text: "Login with Google",
+                    textColor: AppColors.textColor,
+                    backgroundColor: AppColors.secondary,
+                    onPressed: () {
+                      context.read<UserBloc>().add(LoginWithGoogleEvent());
+                    },
+                  ),
+                ],
+              ),
             );
           },
           listener: (context, state) {

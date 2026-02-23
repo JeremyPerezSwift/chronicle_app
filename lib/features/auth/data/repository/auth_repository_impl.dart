@@ -15,6 +15,49 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, UserModel>> loginWithGoogle() async {
     try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      if (googleUser == null) {
+        return Either.left(AuthFailure(message: 'Google sign in cancelled'));
+      }
+
+      final GoogleSignInAuthentication googleAuth =
+      await googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final firebaseCredentials =
+      await FirebaseAuth.instance.signInWithCredential(credential);
+
+      final user = firebaseCredentials.user;
+      if (user == null) {
+        return Either.left(AuthFailure(message: 'Firebase user is null'));
+      }
+
+      final firebaseToken = await user.getIdToken();
+      if (firebaseToken == null || firebaseToken.isEmpty) {
+        return Either.left(AuthFailure(message: 'Firebase token is null/empty'));
+      }
+
+      final request =
+      await authRemoteDatasource.loginWithGoogle(firebaseToken);
+
+      return Either.right(request);
+
+    } on DioException catch (e) {
+      return Either.left(
+          AuthFailure(message: e.response?.data['error'] ?? 'Server error'));
+    } catch (e) {
+      return Either.left(AuthFailure(message: 'Auth failure'));
+    }
+  }
+
+  /*@override
+  Future<Either<Failure, UserModel>> loginWithGoogle() async {
+    try {
      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
@@ -33,6 +76,6 @@ class AuthRepositoryImpl implements AuthRepository {
     } on Exception catch(e) {
       return Either.left(AuthFailure(message: 'Auth failure'));
     }
-  }
+  }*/
 
 }
