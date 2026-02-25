@@ -39,6 +39,7 @@ class TokenInterceptor extends Interceptor {
 
         if (currentUser != null) {
           String? newToken = await currentUser.getIdToken(true);
+          //final String? newToken = await currentUser.getIdToken(); // sans true
           if (newToken != null) {
             err.requestOptions.headers['Authorization'] = 'Bearer $newToken';
           }
