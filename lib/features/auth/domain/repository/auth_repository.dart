@@ -4,4 +4,5 @@ import 'package:chronicle_app/features/auth/domain/model/user_model.dart';
 
 abstract class AuthRepository{
   Future<Either<Failure, UserModel>> loginWithGoogle();
+  Future<Either<Failure, void>> logout();
 }

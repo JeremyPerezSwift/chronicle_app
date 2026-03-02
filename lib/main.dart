@@ -42,7 +42,7 @@ void main() async {
           listener: (context, state) {
             if (state.status == UserStatus.success) {
               AppRouter.router.go(HomePage.route);
-            } else if (state.status == UserStatus.error) {
+            } else if (state.status == UserStatus.error || state.status == UserStatus.logout) {
               AppRouter.router.go(AuthPage.route);
             }
           },

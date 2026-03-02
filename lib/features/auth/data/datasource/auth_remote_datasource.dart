@@ -11,4 +11,6 @@ class AuthRemoteDatasource {
     var request = await dio.post('users/login', data: {'token': token});
     return UserModel.fromJson(request.data);
   }
+
+
 }
