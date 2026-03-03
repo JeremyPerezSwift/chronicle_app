@@ -26,6 +26,9 @@ class _SplashPageState extends State<SplashPage> {
     // 1) Attendre que Firebase restaure la session
     final user = await FirebaseAuth.instance.authStateChanges().first;
 
+    print('authStateChanges first user: ${user?.uid}');
+    print('currentUser immediate: ${FirebaseAuth.instance.currentUser?.uid}');
+
     if (!mounted) return;
 
     // 2) Déclencher après le 1er frame pour éviter "bloqué sur splash"

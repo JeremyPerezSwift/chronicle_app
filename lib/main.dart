@@ -43,6 +43,10 @@ void main() async {
             if (state.status == UserStatus.success) {
               AppRouter.router.go(HomePage.route);
             } else if (state.status == UserStatus.error || state.status == UserStatus.logout) {
+              print('Redirecting to AuthPage');
+              print('Error message: ${state.errorMessage}');
+              print('Firebase currentUser now: ${FirebaseAuth.instance.currentUser?.uid}');
+
               AppRouter.router.go(AuthPage.route);
             }
           },

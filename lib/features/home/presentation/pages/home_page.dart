@@ -90,7 +90,7 @@ class HomePage extends StatelessWidget {
           DefaultButton(
             text: 'Create new game',
             onPressed: () {
-              context.go(CreateGamePage.route);
+              context.push(CreateGamePage.route);
             },
             backgroundColor: AppColors.secondary,
             textColor: AppColors.textColor,
