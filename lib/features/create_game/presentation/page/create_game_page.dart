@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:chronicle_app/core/theme/app_colors.dart';
 import 'package:chronicle_app/core/ui/widgets/default_button.dart';
 import 'package:chronicle_app/core/ui/widgets/default_text_field.dart';
@@ -45,6 +47,27 @@ class _CreateGamePageState extends State<CreateGamePage> {
     );
   }
 
+  Widget _buildContentNumberPicker(BuildContext context, String title, int from, int to, Function(int) onNumberChanged) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 15.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title, style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500)),
+          const SizedBox(height: 10),
+          SizedBox(
+            height: 52, // ajuste selon ton design
+            child: NumberPicker(
+              from: from,
+              to: to,
+              onNumberChanged: onNumberChanged,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildBody(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
@@ -69,84 +92,24 @@ class _CreateGamePageState extends State<CreateGamePage> {
           ),
 
           /// Rounds
-          Padding(
-            padding: EdgeInsets.only(bottom: 15.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Rounds', style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500)),
-                const SizedBox(height: 10),
-                SizedBox(
-                  height: 52, // ajuste selon ton design
-                  child: NumberPicker(
-                    from: 3,
-                    to: 10,
-                    onNumberChanged: (value) {},
-                  ),
-                ),
-              ],
-            ),
-          ),
+          _buildContentNumberPicker(context, 'Rounds', 3, 10, (value) {
+
+          }),
 
           /// Round duration (minutes)
-          Padding(
-            padding: EdgeInsets.only(bottom: 15.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Round duration (minutes)', style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500)),
-                const SizedBox(height: 10),
-                SizedBox(
-                  height: 52, // ajuste selon ton design
-                  child: NumberPicker(
-                    from: 3,
-                    to: 10,
-                    onNumberChanged: (value) {},
-                  ),
-                ),
-              ],
-            ),
-          ),
+          _buildContentNumberPicker(context, 'Round duration (minutes)', 3, 10, (value) {
+
+          }),
 
           /// Voting duration (minutes)
-          Padding(
-            padding: EdgeInsets.only(bottom: 15.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Voting duration (minutes)', style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500)),
-                const SizedBox(height: 10),
-                SizedBox(
-                  height: 52, // ajuste selon ton design
-                  child: NumberPicker(
-                    from: 2,
-                    to: 10,
-                    onNumberChanged: (value) {},
-                  ),
-                ),
-              ],
-            ),
-          ),
+          _buildContentNumberPicker(context, 'Voting duration (minutes)', 2, 10, (value) {
+
+          }),
 
           /// Maximum participants
-          Padding(
-            padding: EdgeInsets.only(bottom: 15.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Maximum participants', style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500)),
-                const SizedBox(height: 10),
-                SizedBox(
-                  height: 52, // ajuste selon ton design
-                  child: NumberPicker(
-                    from: 2,
-                    to: 10,
-                    onNumberChanged: (value) {},
-                  ),
-                ),
-              ],
-            ),
-          ),
+          _buildContentNumberPicker(context, 'Maximum participants', 2, 10, (value) {
+
+          }),
 
           /// Creat Button
           Spacer(),
