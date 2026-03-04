@@ -54,66 +54,70 @@ class _CreateGamePageState extends State<CreateGamePage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-
-          /// Title
-          Padding(
-            padding: EdgeInsets.only(bottom: 15.0),
+    return Column(
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Title', style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500)),
-                const SizedBox(height: 10),
-                DefaultTextField(
-                  hintText: 'Enter story title',
-                  onChanged: (value) {
-                    setState(() {
-                      title = value;
-                    });
-                  },
-                  borderRadius: BorderRadius.circular(12),
+                /// Title
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 15.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Title',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(fontWeight: FontWeight.w500),
+                      ),
+                      const SizedBox(height: 10),
+                      DefaultTextField(
+                        hintText: 'Enter story title',
+                        onChanged: (value) {
+                          setState(() => title = value);
+                        },
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ],
+                  ),
                 ),
+
+                _buildContentNumberPicker(context, 'Rounds', 3, 10, (value) {
+                  setState(() => rounds = value);
+                }),
+
+                _buildContentNumberPicker(
+                    context, 'Round duration (minutes)', 2, 10, (value) {
+                  setState(() => roundDuration = value);
+                }),
+
+                _buildContentNumberPicker(
+                    context, 'Voting duration (minutes)', 2, 10, (value) {
+                  setState(() => votingDuration = value);
+                }),
+
+                _buildContentNumberPicker(
+                    context, 'Maximum participants', 2, 10, (value) {
+                  setState(() => maximumParticipants = value);
+                }),
+
+                // ✅ espace pour éviter que le contenu passe sous le bouton
+                const SizedBox(height: 120),
               ],
             ),
           ),
+        ),
 
-          /// Rounds
-          _buildContentNumberPicker(context, 'Rounds', 3, 10, (value) {
-            setState(() {
-              rounds = value;
-            });
-          }),
-
-          /// Round duration (minutes)
-          _buildContentNumberPicker(context, 'Round duration (minutes)', 2, 10, (value) {
-            setState(() {
-              roundDuration = value;
-            });
-          }),
-
-          /// Voting duration (minutes)
-          _buildContentNumberPicker(context, 'Voting duration (minutes)', 2, 10, (value) {
-            setState(() {
-              votingDuration = value;
-            });
-          }),
-
-          /// Maximum participants
-          _buildContentNumberPicker(context, 'Maximum participants', 2, 10, (value) {
-            setState(() {
-              maximumParticipants = value;
-            });
-          }),
-
-          /// Creat Button
-          Spacer(),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
+        // ✅ bouton fixe en bas
+        SafeArea(
+          top: false,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
             child: DefaultButton(
               text: 'Create',
               onPressed: title.isEmpty ? null : () {},
@@ -121,8 +125,8 @@ class _CreateGamePageState extends State<CreateGamePage> {
               textColor: AppColors.textColor,
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
