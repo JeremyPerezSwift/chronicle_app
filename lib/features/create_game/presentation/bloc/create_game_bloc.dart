@@ -9,4 +9,22 @@ class CreateGameBloc extends Bloc<CreateGameEvent, CreateGameState> {
   CreateGameBloc({
     required this.createGameRepository,
   }) : super(CreateGameState.initial());
+
+  Future onCreateGameEvent(CreateGameEvent event, Emitter emit) async {
+    emit(state.copyWith(status: CreateGameStatus.loading));
+
+    var result = await createGameRepository.createGame(
+      title: event.title,
+      rounds: event.rounds,
+      roundDuration: event.roundDuration,
+      votingDuration: event.votingDuration,
+      maximumParticipants: event.maximumParticipants,
+    );
+
+    if (result.isRight()) {
+      emit(state.copyWith(status: CreateGameStatus.success, createdGameCode: result.right));
+    } else {
+      emit(state.copyWith(status: CreateGameStatus.error, errorMessage: result.left.message));
+    }
+  }
 }

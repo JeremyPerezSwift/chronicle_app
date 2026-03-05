@@ -8,6 +8,8 @@ import 'package:chronicle_app/features/auth/domain/repository/user_repository.da
 import 'package:chronicle_app/features/auth/presentation/bloc/user_bloc.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../features/create_game/presentation/bloc/create_game_bloc.dart';
+
 final GetIt getIt = GetIt.instance;
 
 void setup() {
@@ -48,6 +50,12 @@ void registerBloc() {
     () => UserBloc(
       authRepository: getIt(),
       userRepository: getIt(),
+    ),
+  );
+
+  getIt.registerFactory(
+        () => CreateGameBloc(
+      createGameRepository: getIt(),
     ),
   );
 }
