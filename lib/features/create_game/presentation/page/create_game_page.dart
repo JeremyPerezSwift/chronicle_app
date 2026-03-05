@@ -78,6 +78,8 @@ class _CreateGamePageState extends State<CreateGamePage> {
                       const SizedBox(height: 10),
                       DefaultTextField(
                         hintText: 'Enter story title',
+                        minLines: 1,
+                        maxLines: 1,
                         onChanged: (value) {
                           setState(() => title = value);
                         },
@@ -106,7 +108,6 @@ class _CreateGamePageState extends State<CreateGamePage> {
                   setState(() => maximumParticipants = value);
                 }),
 
-                // ✅ espace pour éviter que le contenu passe sous le bouton
                 const SizedBox(height: 120),
               ],
             ),
