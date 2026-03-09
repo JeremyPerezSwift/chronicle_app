@@ -8,7 +8,9 @@ class CreateGameBloc extends Bloc<CreateGameEvent, CreateGameState> {
 
   CreateGameBloc({
     required this.createGameRepository,
-  }) : super(CreateGameState.initial());
+  }) : super(CreateGameState.initial()) {
+    on<CreateGameEvent>(onCreateGameEvent);
+  }
 
   Future onCreateGameEvent(CreateGameEvent event, Emitter emit) async {
     emit(state.copyWith(status: CreateGameStatus.loading));

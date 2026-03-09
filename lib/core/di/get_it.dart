@@ -6,6 +6,9 @@ import 'package:chronicle_app/features/auth/data/repository/user_repository_impl
 import 'package:chronicle_app/features/auth/domain/repository/auth_repository.dart';
 import 'package:chronicle_app/features/auth/domain/repository/user_repository.dart';
 import 'package:chronicle_app/features/auth/presentation/bloc/user_bloc.dart';
+import 'package:chronicle_app/features/create_game/data/datasource/create_game_remote_datasource.dart';
+import 'package:chronicle_app/features/create_game/data/repository/create_gma_repository_impl.dart';
+import 'package:chronicle_app/features/create_game/domain/repository/create_game_repository.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../features/create_game/presentation/bloc/create_game_bloc.dart';
@@ -30,6 +33,7 @@ void registerDatasource() {
 
   getIt.registerSingleton(AuthRemoteDatasource(dio: dio));
   getIt.registerSingleton(UserRemoteDatasource(dio: dioWithTokenInterceptor));
+  getIt.registerSingleton(CreateGameRemoteDatasource(dio: dioWithTokenInterceptor));
 }
 
 void registerRepository() {
@@ -41,6 +45,12 @@ void registerRepository() {
   getIt.registerSingleton<UserRepository>(
     UserRepositoryImpl(
       userRemoteDatasource: getIt(),
+    ),
+  );
+
+  getIt.registerSingleton<CreateGameRepository>(
+    CreateGameRepositoryImpl(
+      createGameRemoteDatasource: getIt(),
     ),
   );
 }

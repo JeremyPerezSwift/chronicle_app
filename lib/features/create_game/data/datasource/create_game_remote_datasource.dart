@@ -15,8 +15,8 @@ class CreateGameRemoteDatasource {
     var result = await dio.post('/games/create', data: {
       'name': title,
       'maxRounds': rounds,
-      'roundTime': roundDuration,
-      'voteTime': votingDuration,
+      'roundTime': roundDuration * 60,
+      'voteTime': votingDuration * 60,
       'maxPlayers': maximumParticipants,
     });
 
