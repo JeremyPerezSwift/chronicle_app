@@ -102,7 +102,9 @@ class _CreateGamePageState extends State<CreateGamePage> {
 
                     _buildContentNumberPicker(
                         context, 'Round duration (minutes)', 2, 10, (value) {
-                      setState(() => roundDuration = value);
+                      setState(() {
+                        roundDuration = value;
+                      });
                     }),
 
                     _buildContentNumberPicker(

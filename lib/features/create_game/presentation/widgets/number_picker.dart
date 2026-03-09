@@ -37,7 +37,13 @@ class _NumberPickerState extends State<NumberPicker> {
         return ElevatedButton(
           onPressed: () {
             setState(() {
-              selectedNumber = widget.from + index;
+              final value = widget.from + index;
+
+              setState(() {
+                selectedNumber = value;
+              });
+
+              widget.onNumberChanged(value);
             });
           },
           style: ElevatedButton.styleFrom(
