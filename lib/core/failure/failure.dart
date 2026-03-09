@@ -6,3 +6,7 @@ abstract class Failure{
 class AuthFailure extends Failure {
   AuthFailure({required super.message});
 }
+
+class CreateGameFailure extends Failure {
+  CreateGameFailure({required super.message});
+}
